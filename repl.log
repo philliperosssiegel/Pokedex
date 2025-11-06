@@ -1,0 +1,7 @@
+
+> dev
+> npx tsc && node dist/main.js
+
+Your command was: charmander
+> Your command was: pikachu
+> 
