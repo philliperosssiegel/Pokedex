@@ -14,6 +14,7 @@ export type State = {
     nextLocationsURL: string;
     prevLocationsURL: string;
     locationIncrementer: number;
+    mappingStepCount: number;
     // pokecache: Cache
 }
 
@@ -61,6 +62,7 @@ export function initState(): State {
         nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         locationIncrementer: 20,
+        mappingStepCount: 0,
         // pokecache: new Cache(0)
     };
 

@@ -45,6 +45,7 @@ export function initState() {
         nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         locationIncrementer: 20,
+        mappingStepCount: 0,
         // pokecache: new Cache(0)
     };
     return newState;

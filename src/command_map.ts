@@ -14,15 +14,24 @@ export async function commandMap(state: State): Promise<void> {
         console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
         console.log("")
 
-        state.prevLocationsURL = state.nextLocationsURL;
-        const lastLocationId = Number(state.nextLocationsURL.replace("https://pokeapi.co/api/v2/location-area/?offset=", "").split("&")[0]) + state.locationIncrementer;
-        state.nextLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${lastLocationId + state.locationIncrementer}&limit=${state.locationIncrementer}`;
+        state.mappingStepCount++;
+        state.nextLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${state.mappingStepCount * state.locationIncrementer}&limit=${state.locationIncrementer}`;
+        state.prevLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${Math.max(state.mappingStepCount - 2, 0) * state.locationIncrementer}&limit=${state.locationIncrementer}`;
+        // // // state.prevLocationsURL = state.nextLocationsURL;
+        // // const lastLocationId = Number(state.nextLocationsURL.replace("https://pokeapi.co/api/v2/location-area/?offset=", "").split("&")[0]) + state.locationIncrementer;
+        // // state.nextLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${lastLocationId + state.locationIncrementer}&limit=${state.locationIncrementer}`;
+        // // state.prevLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${Math.max(lastLocationId - (2 * state.locationIncrementer), 0)}&limit=${state.locationIncrementer}`;
+
+        // state.nextLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${state.lastLocationId + state.locationIncrementer}&limit=${state.locationIncrementer}`;
+        // state.prevLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${Math.max(state.lastLocationId - (2 * state.locationIncrementer), 0)}&limit=${state.locationIncrementer}`;
+        // lastLocationId += state.locationIncrementer;
 
         console.log("")
         console.log("After Updating Info:")
         console.log(`prevLocationsURL: ${state.prevLocationsURL}`)
         console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
-        console.log(`lastLocationId: ${lastLocationId}`)
+        console.log(`mappingStepCount: ${state.mappingStepCount}`)
+        // console.log(`lastLocationId: ${lastLocationId}`)
         console.log("")
         // console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
 
