@@ -1,19 +1,34 @@
 export class PokeAPI {
     static baseURL = "https://pokeapi.co/api/v2";
+    pokecache;
     //   private static lastLocationId = -1;
     //   private static readonly locationIncrementer = 20;
     //   public static nextLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=0&limit=20`;
     //   public static prevLocationsURL = "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20";
-    constructor() { }
+    constructor(pokecache) {
+        this.pokecache = pokecache;
+    }
     async fetchLocations(pageURL) {
-        const response = await fetch(pageURL);
-        // const responseLocationResults = response.json() as ShallowLocations;
-        // PokeAPI.lastLocationId += PokeAPI.locationIncrementer;
-        // PokeAPI.nextLocationsURL = `${PokeAPI.baseURL}/location-area/?offset=${PokeAPI.lastLocationId + 1}&limit=20`;
-        return response.json();
-        // } catch (err) {
-        //     console.log(`Error running fetchLocations() function: ${err}`)
-        // }
+        const cached = this.pokecache.get(pageURL);
+        console.log(`Running fectionLocations: pageURL = ${pageURL}`);
+        console.log(`cached: ${cached}`);
+        if (cached) {
+            console.log("Returning cached result!");
+            return cached;
+        }
+        else {
+            const response = await fetch(pageURL);
+            const returnedJSON = response.json();
+            console.log(`fetchLocations(pageURL) => `);
+            this.pokecache.add(pageURL, returnedJSON);
+            // const responseLocationResults = response.json() as ShallowLocations;
+            // PokeAPI.lastLocationId += PokeAPI.locationIncrementer;
+            // PokeAPI.nextLocationsURL = `${PokeAPI.baseURL}/location-area/?offset=${PokeAPI.lastLocationId + 1}&limit=20`;
+            return returnedJSON;
+            // } catch (err) {
+            //     console.log(`Error running fetchLocations() function: ${err}`)
+            // }
+        }
     }
     //   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
     //     const fullURL = `${PokeAPI.baseURL}/location-area/?offset=${PokeAPI.lastLocationId + 1}&limit=20`;
@@ -27,8 +42,15 @@ export class PokeAPI {
     //   }
     async fetchLocation(locationName) {
         const fullURL = `${PokeAPI.baseURL}/location-area/`;
-        const response = await fetch(fullURL);
-        return response.json();
+        const cached = this.pokecache.get(fullURL);
+        if (cached) {
+            return cached;
+        }
+        else {
+            const response = await fetch(fullURL);
+            this.pokecache.add(fullURL, response.json());
+            return response.json();
+        }
     }
 }
 // export type ShallowLocations = {

@@ -5,6 +5,7 @@ import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { CLICommand } from './command.js';
 import { PokeAPI } from "./pokeapi.js";
+import { PokeCache } from "./pokecache.js"
 
 export type State = {
     readline: Interface;
@@ -13,6 +14,7 @@ export type State = {
     nextLocationsURL: string;
     prevLocationsURL: string;
     locationIncrementer: number;
+    // pokecache: Cache
 }
 
 function createReadLineInterface() {
@@ -55,10 +57,11 @@ export function initState(): State {
     const newState: State = {
         readline: createReadLineInterface(),
         commands: getCommands(),
-        pokeapi: new PokeAPI(),
+        pokeapi: new PokeAPI(new PokeCache(0)),
         nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
-        locationIncrementer: 20
+        locationIncrementer: 20,
+        // pokecache: new Cache(0)
     };
 
     return newState;

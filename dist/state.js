@@ -4,6 +4,7 @@ import { commandHelp } from './command_help.js';
 import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { PokeAPI } from "./pokeapi.js";
+import { PokeCache } from "./pokecache.js";
 function createReadLineInterface() {
     const rl = createInterface({
         input: process.stdin,
@@ -40,10 +41,11 @@ export function initState() {
     const newState = {
         readline: createReadLineInterface(),
         commands: getCommands(),
-        pokeapi: new PokeAPI(),
+        pokeapi: new PokeAPI(new PokeCache(0)),
         nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
-        locationIncrementer: 20
+        locationIncrementer: 20,
+        // pokecache: new Cache(0)
     };
     return newState;
 }
