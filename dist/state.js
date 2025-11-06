@@ -1,6 +1,9 @@
 import { createInterface } from "readline";
 import { commandExit } from './command_exit.js';
 import { commandHelp } from './command_help.js';
+import { commandMap } from "./command_map.js";
+import { commandMapB } from "./command_mapb.js";
+import { PokeAPI } from "./pokeapi.js";
 function createReadLineInterface() {
     const rl = createInterface({
         input: process.stdin,
@@ -14,19 +17,33 @@ export function getCommands() {
         exit: {
             name: "exit",
             description: "Exits the pokedex",
-            callback: commandExit,
+            callback: commandExit
         },
         help: {
             name: "help",
             description: "Explains how to use the pokedex",
             callback: commandHelp,
         },
+        map: {
+            name: "map",
+            description: `Print the next X locations`,
+            callback: commandMap,
+        },
+        mapb: {
+            name: "mapb",
+            description: "Print the previous X locations",
+            callback: commandMapB,
+        },
     };
 }
 export function initState() {
     const newState = {
         readline: createReadLineInterface(),
-        commands: getCommands()
+        commands: getCommands(),
+        pokeapi: new PokeAPI(),
+        nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
+        prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
+        locationIncrementer: 20
     };
     return newState;
 }

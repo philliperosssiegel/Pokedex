@@ -15,7 +15,7 @@ export function cleanInput(input: string): string[] {
 export function startREPL() {
     const state = initState();
     state.readline.prompt();
-    state.readline.on('line', (line: string) => {
+    state.readline.on('line', async (line: string) => {
     if (line.length === 0 || !line) {
         state.readline.prompt()
     } else {
@@ -25,7 +25,7 @@ export function startREPL() {
             const command = inputs[0];
 
             if (command in commands) {
-                commands[command].callback(commands);
+                await commands[command].callback(state);
             } else {
                 console.log("Unknown command");
             }
