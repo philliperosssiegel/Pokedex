@@ -36,7 +36,7 @@ export class PokeAPI {
     } else {
         const response = await fetch(pageURL);
         const returnedJSON = response.json();
-        console.log(`fetchLocations(pageURL) => `)
+        // console.log(`fetchLocations(pageURL) => `)
         this.pokecache.add<Promise<ShallowLocations>>(pageURL, returnedJSON)
         // const responseLocationResults = response.json() as ShallowLocations;
         // PokeAPI.lastLocationId += PokeAPI.locationIncrementer;

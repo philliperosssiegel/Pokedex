@@ -5,13 +5,13 @@ export async function commandMapB(state: State): Promise<void> {
     try {
         const shallowLocations = await state.pokeapi.fetchLocations(state.prevLocationsURL);
 
-        console.log("")
-        console.log("Before Updating Info:")
-        console.log(`prevLocationsURL: ${state.prevLocationsURL}`)
-        console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
-        console.log("")
+        // console.log("")
+        // console.log("Before Updating Info:")
+        // console.log(`prevLocationsURL: ${state.prevLocationsURL}`)
+        // console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
+        // console.log("")
 
-        state.mappingStepCount--;
+        state.mappingStepCount = Math.max(state.mappingStepCount - 1, 1);
         state.nextLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${state.mappingStepCount * state.locationIncrementer}&limit=${state.locationIncrementer}`;
         state.prevLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${Math.max(state.mappingStepCount - 2, 0) * state.locationIncrementer}&limit=${state.locationIncrementer}`;
 
@@ -24,14 +24,14 @@ export async function commandMapB(state: State): Promise<void> {
         // const prevLocationId = lastLocationId >= state.locationIncrementer ? lastLocationId - state.locationIncrementer : 0 
         // state.prevLocationsURL = `https://pokeapi.co/api/v2/location-area/?offset=${prevLocationId}&limit=${state.locationIncrementer}`;
 
-        console.log("")
-        console.log("After Updating Info:")
-        console.log(`prevLocationsURL: ${state.prevLocationsURL}`)
-        console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
-        console.log(`mappingStepCount: ${state.mappingStepCount}`)
-        // console.log(`lastLocationId: ${lastLocationId}`)
-        // console.log(`prevLocationId: ${prevLocationId}`)
-        console.log("")
+        // console.log("")
+        // console.log("After Updating Info:")
+        // console.log(`prevLocationsURL: ${state.prevLocationsURL}`)
+        // console.log(`nextLocationsURL: ${state.nextLocationsURL}`)
+        // console.log(`mappingStepCount: ${state.mappingStepCount}`)
+        // // console.log(`lastLocationId: ${lastLocationId}`)
+        // // console.log(`prevLocationId: ${prevLocationId}`)
+        // console.log("")
 
         // console.log(`prevLocationsURL: ${state.prevLocationsURL}`)
         // console.log(`prevLocationId: ${prevLocationId}`)

@@ -58,7 +58,7 @@ export function initState(): State {
     const newState: State = {
         readline: createReadLineInterface(),
         commands: getCommands(),
-        pokeapi: new PokeAPI(new PokeCache(0)),
+        pokeapi: new PokeAPI(new PokeCache(100000)),
         nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         locationIncrementer: 20,
