@@ -5,6 +5,7 @@ import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { PokeAPI } from "./pokeapi.js";
 import { PokeCache } from "./pokecache.js";
+import { commandExplore } from "./command_explore.js";
 function createReadLineInterface() {
     const rl = createInterface({
         input: process.stdin,
@@ -35,6 +36,11 @@ export function getCommands() {
             description: "Print the previous X locations",
             callback: commandMapB,
         },
+        explore: {
+            name: "explore",
+            description: "Explore a location for pokemon!",
+            callback: commandExplore
+        }
     };
 }
 export function initState() {

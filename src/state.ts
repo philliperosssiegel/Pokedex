@@ -6,6 +6,7 @@ import { commandMapB } from "./command_mapb.js";
 import { CLICommand } from './command.js';
 import { PokeAPI } from "./pokeapi.js";
 import { PokeCache } from "./pokecache.js"
+import { commandExplore } from "./command_explore.js";
 
 export type State = {
     readline: Interface;
@@ -32,25 +33,30 @@ function createReadLineInterface() {
 export function getCommands(): Record<string, CLICommand> {
     return {
         exit: {
-        name: "exit",
-        description: "Exits the pokedex",
-        callback: commandExit
+            name: "exit",
+            description: "Exits the pokedex",
+            callback: commandExit
         },
         help: {
-        name: "help",
-        description: "Explains how to use the pokedex",
-        callback: commandHelp,
+            name: "help",
+            description: "Explains how to use the pokedex",
+            callback: commandHelp,
         },
         map: {
-        name: "map",
-        description: `Print the next X locations`,
-        callback: commandMap,
+            name: "map",
+            description: `Print the next X locations`,
+            callback: commandMap,
         },
         mapb: {
-        name: "mapb",
-        description: "Print the previous X locations",
-        callback: commandMapB,
+            name: "mapb",
+            description: "Print the previous X locations",
+            callback: commandMapB,
         },
+        explore: {
+            name: "explore",
+            description: "Explore a location for pokemon!",
+            callback: commandExplore
+        }
     };
 }
 

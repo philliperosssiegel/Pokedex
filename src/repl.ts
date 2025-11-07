@@ -20,12 +20,15 @@ export function startREPL() {
         state.readline.prompt()
     } else {
         try {
-            const inputs = cleanInput(line);
+            let inputs = cleanInput(line);
             const commands = getCommands();
             const command = inputs[0];
+            if (inputs.length > 1) {
+                inputs = inputs.slice(1);
+            }
 
             if (command in commands) {
-                await commands[command].callback(state);
+                await commands[command].callback(state, inputs[0]);
             } else {
                 console.log("Unknown command");
             }
