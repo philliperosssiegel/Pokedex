@@ -3,14 +3,17 @@ import { commandExit } from './command_exit.js';
 import { commandHelp } from './command_help.js';
 import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
+import { commandExplore } from "./command_explore.js";
+import { commandCatch } from "./commandCatch.js";
+import { commandInspect } from "./commandInspect.js";
+import { commandPokedex } from "./command_pokedex.js";
 import { PokeAPI } from "./pokeapi.js";
 import { PokeCache } from "./pokecache.js";
-import { commandExplore } from "./command_explore.js";
 function createReadLineInterface() {
     const rl = createInterface({
         input: process.stdin,
         output: process.stdout,
-        prompt: "> "
+        prompt: "Pokedex > "
     });
     return rl;
 }
@@ -18,12 +21,12 @@ export function getCommands() {
     return {
         exit: {
             name: "exit",
-            description: "Exits the pokedex",
+            description: "Exits the Pokedex",
             callback: commandExit
         },
         help: {
             name: "help",
-            description: "Explains how to use the pokedex",
+            description: "Explains how to use the Pokedex",
             callback: commandHelp,
         },
         map: {
@@ -38,8 +41,23 @@ export function getCommands() {
         },
         explore: {
             name: "explore",
-            description: "Explore a location for pokemon!",
+            description: "Explore a location for Pokemon!",
             callback: commandExplore
+        },
+        catch: {
+            name: "catch",
+            description: "Attempt to catch a Pokemon!",
+            callback: commandCatch
+        },
+        inspect: {
+            name: "inspect",
+            description: "Inspect a Pokemon!",
+            callback: commandInspect
+        },
+        pokedex: {
+            name: "pokedex",
+            description: "List every Pokemon that's been caught!",
+            callback: commandPokedex
         }
     };
 }
@@ -52,6 +70,7 @@ export function initState() {
         prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
         locationIncrementer: 20,
         mappingStepCount: 0,
+        caughtPokemon: {}
         // pokecache: new Cache(0)
     };
     return newState;

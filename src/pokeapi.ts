@@ -1,91 +1,7 @@
 import { fileURLToPathBuffer } from "url"
 import { PokeCache } from "./pokecache"
-
-export type ShallowLocations = {
-    "count": number,
-    "next": string,
-    "previous": string,
-    "results": Location[]
-}
-
-export type Location = {
-    "name": string,
-    "url" : string
-}
-
-export interface Root {
-  encounter_method_rates: EncounterMethodRate[]
-  game_index: number
-  id: number
-  location: Location
-  name: string
-  names: Name[]
-  pokemon_encounters: PokemonEncounter[]
-}
-
-export interface EncounterMethodRate {
-  encounter_method: EncounterMethod
-  version_details: VersionDetail[]
-}
-
-export interface EncounterMethod {
-  name: string
-  url: string
-}
-
-export interface VersionDetail {
-  rate: number
-  version: Version
-}
-
-export interface Version {
-  name: string
-  url: string
-}
-
-export interface Name {
-  language: Language
-  name: string
-}
-
-export interface Language {
-  name: string
-  url: string
-}
-
-export interface PokemonEncounter {
-  pokemon: Pokemon
-  version_details: VersionDetail2[]
-}
-
-export interface Pokemon {
-  name: string
-  url: string
-}
-
-export interface VersionDetail2 {
-  encounter_details: EncounterDetail[]
-  max_chance: number
-  version: Version2
-}
-
-export interface EncounterDetail {
-  chance: number
-  condition_values: any[]
-  max_level: number
-  method: Method
-  min_level: number
-}
-
-export interface Method {
-  name: string
-  url: string
-}
-
-export interface Version2 {
-  name: string
-  url: string
-}
+import { LocationRoot, ShallowLocations } from "./pokeapi_types_location"
+import { PokemonRoot } from "./pokeapi_types_pokemon"
 
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
@@ -98,11 +14,29 @@ export class PokeAPI {
   constructor(pokecache: PokeCache) {
     this.pokecache = pokecache;
   }
+  
+  async inspectPokemon(pokemon_name: string): Promise<PokemonRoot> {
+    const pageURL = `${PokeAPI.baseURL}/pokemon/${pokemon_name}`;
 
-  async exploreLocation(area_name: string): Promise<Root> {
+    const cached = this.pokecache.get<PokemonRoot>(pageURL);
+    console.log(`Running inspectPokemon: pageURL = ${pageURL}`);
+
+    if (cached) {
+        console.log("Returning cached result!");
+        return cached;
+    } else {
+        const response = await fetch(pageURL);
+        const returnedJSON = response.json();
+        this.pokecache.add<Promise<PokemonRoot>>(pageURL, returnedJSON);
+
+        return returnedJSON;
+    }
+  }
+
+  async exploreLocation(area_name: string): Promise<LocationRoot> {
     const pageURL = `${PokeAPI.baseURL}/location-area/${area_name}`;
 
-    const cached = this.pokecache.get<Root>(pageURL);
+    const cached = this.pokecache.get<LocationRoot>(pageURL);
     console.log(`Running exploreLocation: pageURL = ${pageURL}`);
 
     if (cached) {
@@ -111,7 +45,7 @@ export class PokeAPI {
     } else {
         const response = await fetch(pageURL);
         const returnedJSON = response.json();
-        this.pokecache.add<Promise<Root>>(pageURL, returnedJSON);
+        this.pokecache.add<Promise<LocationRoot>>(pageURL, returnedJSON);
 
         return returnedJSON;
     }

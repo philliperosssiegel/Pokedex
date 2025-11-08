@@ -2,15 +2,7 @@
 > dev
 > npx tsc && node dist/main.js
 
-> Running exploreLocation: pageURL = https://pokeapi.co/api/v2/location-area/pastoria-city-area
-tentacool
-tentacruel
-magikarp
-gyarados
-remoraid
-octillery
-wingull
-pelipper
-shellos
-gastrodon
-> Closing the Pokedex... Goodbye!
+Pokedex > Running inspectPokemon: pageURL = https://pokeapi.co/api/v2/pokemon/squirtle
+Throwing a Pokeball at squirtle...
+squirtle was caught!
+Pokedex > Closing the Pokedex... Goodbye!

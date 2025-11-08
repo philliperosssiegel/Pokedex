@@ -4,9 +4,10 @@ export async function commandExplore(state, ...args) {
         return;
     }
     try {
-        const root = await state.pokeapi.exploreLocation(args[0]);
-        if (root !== undefined) {
-            for (const pokemon_encounter of root.pokemon_encounters) {
+        const locationName = args[0];
+        const LocationRoot = await state.pokeapi.exploreLocation(locationName);
+        if (LocationRoot !== undefined) {
+            for (const pokemon_encounter of LocationRoot.pokemon_encounters) {
                 console.log(pokemon_encounter.pokemon.name);
             }
         }
