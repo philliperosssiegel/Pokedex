@@ -35,7 +35,7 @@ function createReadLineInterface() {
     return rl;
 }
 
-export function getCommands(): Record<string, CLICommand> {
+export function getCommands(locationIncrementer?: number): Record<string, CLICommand> {
     return {
         exit: {
             name: "exit",
@@ -49,12 +49,12 @@ export function getCommands(): Record<string, CLICommand> {
         },
         map: {
             name: "map",
-            description: `Print the next X locations`,
+            description: `Print the next ${locationIncrementer} locations`,
             callback: commandMap,
         },
         mapb: {
             name: "mapb",
-            description: "Print the previous X locations",
+            description: `Print the previous ${locationIncrementer} locations`,
             callback: commandMapB,
         },
         explore: {
@@ -81,15 +81,16 @@ export function getCommands(): Record<string, CLICommand> {
 }
 
 export function initState(): State {
+    const locationIncrementer = 20;
     const newState: State = {
-        readline: createReadLineInterface(),
-        commands: getCommands(),
-        pokeapi: new PokeAPI(new PokeCache(100000)),
-        nextLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
-        prevLocationsURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
-        locationIncrementer: 20,
+        nextLocationsURL: `https://pokeapi.co/api/v2/location-area/?offset=0&limit=${locationIncrementer}`,
+        prevLocationsURL: `https://pokeapi.co/api/v2/location-area/?offset=0&limit=${locationIncrementer}`,
+        locationIncrementer: locationIncrementer,
         mappingStepCount: 0,
-        caughtPokemon: {}
+        caughtPokemon: {},
+        readline: createReadLineInterface(),
+        commands: getCommands(locationIncrementer),
+        pokeapi: new PokeAPI(new PokeCache(100000))
         // pokecache: new Cache(0)
     };
 
