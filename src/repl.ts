@@ -1,4 +1,3 @@
-import { removeAllListeners } from 'node:process';
 import { initState, getCommands } from './state.js';
 
 export function cleanInput(input: string): string[] {

@@ -1,8 +1,8 @@
 function successChance(baseExperience, midpoint = 100, steepness = 0.0147, min = 0.01, max = 0.99) {
     const chance = 1 / (1 + Math.exp(steepness * (baseExperience - midpoint)));
-    //   console.log(` chance of success = ${chance}`);
     return Math.min(max, Math.max(min, chance));
 }
+;
 export async function commandCatch(state, ...args) {
     if (args.length < 1) {
         console.log("You need to choose a pokemon to try and catch!");

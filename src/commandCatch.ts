@@ -1,20 +1,16 @@
-import { PokeAPI } from "./pokeapi";
 import { State } from "./state";
 
 function successChance(
-  baseExperience: number,
-  midpoint = 100,
-  steepness = 0.0147,
-  min = 0.01,
-  max = 0.99
+    baseExperience: number,
+    midpoint = 100,
+    steepness = 0.0147,
+    min = 0.01,
+    max = 0.99
 ): number {
-  const chance = 1 / (1 + Math.exp(steepness * (baseExperience - midpoint)));
-
-//   console.log(` chance of success = ${chance}`);
-
-  return Math.min(max, Math.max(min, chance));
-}
-
+    const chance = 1 / (1 + Math.exp(steepness * (baseExperience - midpoint)));
+    
+    return Math.min(max, Math.max(min, chance));
+};
 
 export async function commandCatch(state: State, ...args: string[]): Promise<void> {
 

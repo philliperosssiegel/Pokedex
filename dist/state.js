@@ -13,7 +13,7 @@ function createReadLineInterface() {
     const rl = createInterface({
         input: process.stdin,
         output: process.stdout,
-        prompt: "Pokedex > "
+        prompt: "\nPokedex > "
     });
     return rl;
 }
@@ -36,7 +36,7 @@ export function getCommands(locationIncrementer) {
         },
         mapb: {
             name: "mapb",
-            description: "Print the previous ${locationIncrementer} locations",
+            description: `Print the previous ${locationIncrementer} locations`,
             callback: commandMapB,
         },
         explore: {
@@ -72,7 +72,6 @@ export function initState() {
         readline: createReadLineInterface(),
         commands: getCommands(locationIncrementer),
         pokeapi: new PokeAPI(new PokeCache(100000))
-        // pokecache: new Cache(0)
     };
     return newState;
 }

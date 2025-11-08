@@ -21,7 +21,6 @@ export type State = {
     locationIncrementer: number;
     mappingStepCount: number;
     caughtPokemon: Record<string, PokemonRoot>;
-    // pokecache: Cache
 }
 
 function createReadLineInterface() {
@@ -29,7 +28,7 @@ function createReadLineInterface() {
         {
             input: process.stdin,
             output: process.stdout,
-            prompt: "Pokedex > "
+            prompt: "\nPokedex > "
         }
     );
     return rl;
@@ -91,8 +90,6 @@ export function initState(): State {
         readline: createReadLineInterface(),
         commands: getCommands(locationIncrementer),
         pokeapi: new PokeAPI(new PokeCache(100000))
-        // pokecache: new Cache(0)
     };
-
     return newState;
 }

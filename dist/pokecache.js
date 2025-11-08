@@ -1,4 +1,3 @@
-// import { NodeJS.Timeout } from ./"NodeJS" 
 export class PokeCache {
     #cache = new Map();
     #reapIntervalId = undefined;

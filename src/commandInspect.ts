@@ -2,10 +2,7 @@ import { State } from "./state";
 
 function inspectPokemon(state: State, pokemonName: string): void {
     const pokemon = state.caughtPokemon[pokemonName];
-    const species = pokemon.species;
-    const base_experience = pokemon 
 
-    // console.log(`Information about ${pokemonName}:`);
     console.log(`Name: ${pokemonName}`);
     console.log(`Height: ${pokemon.height}`);
     console.log(`Weight: ${pokemon.weight}`);

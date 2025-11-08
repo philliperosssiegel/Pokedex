@@ -1,4 +1,3 @@
-import { PokeAPI } from "./pokeapi";
 import { State } from "./state";
 
 export async function commandExplore(state: State, ...args: string[]): Promise<void> {

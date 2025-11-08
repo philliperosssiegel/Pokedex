@@ -1,5 +1,3 @@
-// import { NodeJS.Timeout } from ./"NodeJS" 
-
 type CacheEntry<T> = {
     createdAt: number;
     val: T
